@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/mining_test.dir/tests/mining_test.cpp.o -o mining_test  /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

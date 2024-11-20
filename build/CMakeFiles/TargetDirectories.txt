@@ -1,0 +1,4 @@
+/home/merklenode/Desktop/desk2.0/pow_simulator/build/CMakeFiles/PoWSimulator.dir
+/home/merklenode/Desktop/desk2.0/pow_simulator/build/CMakeFiles/mining_test.dir
+/home/merklenode/Desktop/desk2.0/pow_simulator/build/CMakeFiles/edit_cache.dir
+/home/merklenode/Desktop/desk2.0/pow_simulator/build/CMakeFiles/rebuild_cache.dir

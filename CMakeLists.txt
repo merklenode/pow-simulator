@@ -1,33 +1,35 @@
 cmake_minimum_required(VERSION 3.10)
 
-# Project name and version
-project(pow_simulator VERSION 1.0)
+# Project name
+project(PoWSimulator)
 
 # Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD 14)
 
-# Include directories
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Find OpenSSL (needed for SHA256 hashing)
+find_package(OpenSSL REQUIRED)
 
-# Add the main source directory
-add_executable(pow-simulator 
-    src/main.cpp 
-    src/Blockchain.cpp 
-    src/Block.cpp 
-    lib/sha256.cpp)  # Directly include the sha256.cpp file
+# Include directories for OpenSSL and project source files
+include_directories(${OPENSSL_INCLUDE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/src)  # Include the src folder for header files
 
-# Link the SHA-256 library (since it’s directly included, no need for target_link_libraries)
-# target_link_libraries(pow-simulator sha256)  # Not needed anymore
+# Add the executable for PoW Simulator
+add_executable(PoWSimulator
+    src/main.cpp
+    src/mining.cpp
+    src/hash_util.cpp
+    src/difficulty_adjustment.cpp
+)
 
-# If you have unit tests, you can directly add them without `add_subdirectory`
-# Add test files as sources
-add_executable(test_Block test/test_Block.cpp)
-add_executable(test_Blockchain test/test_Blockchain.cpp)
+# Link OpenSSL libraries to the executable
+target_link_libraries(PoWSimulator ${OPENSSL_LIBRARIES})
 
-# Optionally, link your main executable with test executables (if needed)
-# target_link_libraries(test_Block pow-simulator)
-# target_link_libraries(test_Blockchain pow-simulator)
+# Optional: Add Google Test for unit testing (if needed)
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
 
-# Enable testing and define test targets if required
-enable_testing()
+# Add test executable (if you have tests)
+add_executable(mining_test tests/mining_test.cpp)
+
+# Link Google Test libraries to the test executable
+target_link_libraries(mining_test ${GTEST_LIBRARIES} pthread)
